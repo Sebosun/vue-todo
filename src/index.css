@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .fill-icons path {
+    @apply fill-slate-800 dark:fill-slate-100;
+  }
+}
