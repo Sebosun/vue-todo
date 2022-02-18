@@ -4,7 +4,7 @@ import Sun from "../assets/icon-sun.svg";
 
 export default {
   props: ["isInDarkMode", "toggleDarkMode", "Icon"],
-  components: {Moon, Sun},
+  components: { Moon, Sun },
 };
 </script>
 
@@ -21,4 +21,7 @@ export default {
 </template>
 
 <style>
+.fill-icons path {
+  fill: hsl(216, 93%, 92%);
+}
 </style>
