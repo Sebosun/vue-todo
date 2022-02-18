@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  /* .fill-icons path { */
-  /*   @apply fill-slate-100; */
-  /* } */
+  :root {
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+  }
 }

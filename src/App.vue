@@ -141,12 +141,6 @@ export default {
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
-
-html {
-  font-family: "Josefin Sans", sans-serif;
-}
-
 .notDoneTodo {
   width: 2.5rem;
   height: 2.5rem;
