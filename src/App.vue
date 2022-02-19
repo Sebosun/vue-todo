@@ -1,9 +1,10 @@
 <script>
 import Todo from "./components/Todo.vue";
 import Header from "./components/Header.vue";
+import TabSwitchMenu from "./components/TabSwitchMenu.vue";
 
 import draggable from "vuedraggable";
-let id = 3;
+let id = 5;
 export default {
   data() {
     return {
@@ -12,19 +13,34 @@ export default {
       counter: 0,
       todos: [
         {
-          text: "Clean kitchen",
+          text: "Complete online JavaScript course",
           checked: true,
           id: 0,
         },
         {
-          text: "Call a doctor",
+          text: "Jog around the park 3x",
           checked: false,
           id: 1,
         },
         {
-          text: "Resolve todos",
+          text: "10 minutes meditation",
           checked: false,
           id: 2,
+        },
+        {
+          text: "Read for 1 hour",
+          checked: false,
+          id: 3,
+        },
+        {
+          text: "Pick up groceries",
+          checked: false,
+          id: 4,
+        },
+        {
+          text: "Complete Todo App on Frontend Mentor",
+          checked: false,
+          id: 5,
         },
       ],
       drag: false,
@@ -67,22 +83,26 @@ export default {
       return this.todos.filter((item) => !item.checked).length;
     },
   },
-  components: { draggable, Todo, Header },
+  components: { draggable, Todo, Header, TabSwitchMenu },
 };
 </script>
 
 <template>
   <img
-    class="w-full"
+    class="w-full h-64 md:h-80 object-cover"
     v-if="!isInDarkMode"
     src="./assets/bg-desktop-light.jpg"
   />
-  <img class="w-full" v-else src="./assets/bg-desktop-dark.jpg" />
+  <img
+    class="w-full h-64 object-cover"
+    v-else
+    src="./assets/bg-desktop-dark.jpg"
+  />
+
   <div
-    class="relative max-w-md m-8 mx-auto dark:text-white bottom-56 drop-shadow-2xl xl:bottom-72"
+    class="p-4 relative max-w-xl mt-8 md:mt-0 mx-auto dark:text-white bottom-64 drop-shadow-2xl xl:bottom-72"
   >
     <Header :isInDarkMode="isInDarkMode" :toggleDarkMode="toggleDarkMode" />
-
     <div class="m-42">
       <form @submit.prevent="onSubmit">
         <label
@@ -100,40 +120,47 @@ export default {
       </form>
     </div>
 
-    <main
-      class="flex flex-col rounded-lg bg-[hsl(0,0%,98%)] dark:bg-[#25274C] shadow-2xl"
-    >
-      <draggable
-        v-model="todos"
-        group="todos"
-        @start="drag = true"
-        @end="drag = false"
-        item-key="id"
-      >
-        <template #item="{ element }">
-          <div
-            class="todo flex gap-4 items-center p-4 border-b-[1px] border-solid border-[#777A92] dark:text-gray-50"
-          >
-            <Todo
-              :removeTodo="removeTodo"
-              :index="element.id"
-              :todo="element"
-              :onCheck="onCheck"
-            />
-          </div>
-        </template>
-      </draggable>
+    <main class="flex flex-col">
+      <div class="bg-[hsl(0,0%,98%)] rounded-lg shadow-2xl dark:bg-[#25274C]">
+        <draggable
+          v-model="todos"
+          group="todos"
+          @start="drag = true"
+          @end="drag = false"
+          item-key="id"
+        >
+          <template #item="{ element }">
+            <div
+              class="todo flex gap-4 items-center p-4 border-b-[1px] border-solid border-[#777A92] dark:text-gray-50"
+            >
+              <Todo
+                :removeTodo="removeTodo"
+                :index="element.id"
+                :todo="element"
+                :onCheck="onCheck"
+              />
+            </div>
+          </template>
+        </draggable>
 
-      <div class="flex justify-between p-4 text-sm rounded-b-lg">
-        <p class="btn">{{ itemsLength }} Items left</p>
-        <div class="flex ml-8 gap-4">
-          <button class="active btn">All</button>
-          <button class="btn">Active</button>
-          <button class="btn">Completed</button>
+        <div
+          class="flex gap-4 md:gap-0 justify-between p-4 text-sm rounded-b-lg"
+        >
+          <p class="btn">{{ itemsLength }} Items left</p>
+          <div class="hidden justify-center align-center md:block flex gap-4">
+            <TabSwitchMenu />
+          </div>
+          <button class="btn">Clear Completed</button>
         </div>
-        <button class="btn">Clear Completed</button>
+      </div>
+
+      <div
+        class="flex md:hidden bg-[hsl(0,0%,98%)] mt-4 p-4 justify-around rounded-lg shadow-2xl dark:bg-[#25274C]"
+      >
+        <TabSwitchMenu />
       </div>
     </main>
+
     <p class="my-6 text-xs text-center bottom__text">
       Drag and drop to reorder list
     </p>
