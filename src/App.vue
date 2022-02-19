@@ -44,10 +44,6 @@ export default {
         },
       ],
       drag: false,
-      styleObject: {
-        color: "red",
-        fontSize: "13px",
-      },
     };
   },
   methods: {
@@ -91,11 +87,13 @@ export default {
   <img
     class="w-full h-64 md:h-80 object-cover"
     v-if="!isInDarkMode"
+    alt="light background"
     src="./assets/bg-desktop-light.jpg"
   />
   <img
     class="w-full h-64 object-cover"
     v-else
+    alt="dark background"
     src="./assets/bg-desktop-dark.jpg"
   />
 
@@ -103,24 +101,25 @@ export default {
     class="p-4 relative max-w-xl mt-8 md:mt-0 mx-auto dark:text-white bottom-64 drop-shadow-2xl xl:bottom-72"
   >
     <Header :isInDarkMode="isInDarkMode" :toggleDarkMode="toggleDarkMode" />
-    <div class="m-42">
-      <form @submit.prevent="onSubmit">
-        <label
-          class="flex w-full gap-3 bg-white dark:bg-[#25274C] p-4 rounded-md my-8"
-        >
-          <div
-            class="flex self-center justify-center w-6 h-6 notCheckedTodoCircle"
-          />
-          <input
-            v-model="message"
-            placeholder="Create a new todo"
-            class="flex-1 p-1 ring-offset-purple-100 bg-white dark:bg-[#25274C]"
-          />
-        </label>
-      </form>
-    </div>
 
     <main class="flex flex-col">
+      <section class="m-42">
+        <form @submit.prevent="onSubmit">
+          <label
+            class="flex w-full gap-3 bg-white dark:bg-[#25274C] p-4 rounded-md my-8"
+          >
+            <div
+              class="flex self-center justify-center w-6 h-6 notCheckedTodoCircle"
+            />
+            <input
+              v-model="message"
+              placeholder="Create a new todo"
+              class="flex-1 p-1 ring-offset-purple-100 bg-white dark:bg-[#25274C]"
+            />
+          </label>
+        </form>
+      </section>
+
       <div class="bg-[hsl(0,0%,98%)] rounded-lg shadow-2xl dark:bg-[#25274C]">
         <draggable
           v-model="todos"
@@ -130,7 +129,7 @@ export default {
           item-key="id"
         >
           <template #item="{ element }">
-            <div
+            <section
               class="todo flex gap-4 items-center p-4 border-b-[1px] border-solid border-[#777A92] dark:text-gray-50"
             >
               <Todo
@@ -139,11 +138,11 @@ export default {
                 :todo="element"
                 :onCheck="onCheck"
               />
-            </div>
+            </section>
           </template>
         </draggable>
 
-        <div
+        <section
           class="flex gap-4 md:gap-0 justify-between p-4 text-sm rounded-b-lg"
         >
           <p class="btn">{{ itemsLength }} Items left</p>
@@ -151,14 +150,14 @@ export default {
             <TabSwitchMenu />
           </div>
           <button class="btn">Clear Completed</button>
-        </div>
+        </section>
       </div>
 
-      <div
+      <section
         class="flex md:hidden bg-[hsl(0,0%,98%)] mt-4 p-4 justify-around rounded-lg shadow-2xl dark:bg-[#25274C]"
       >
         <TabSwitchMenu />
-      </div>
+      </section>
     </main>
 
     <p class="my-6 text-xs text-center bottom__text">
